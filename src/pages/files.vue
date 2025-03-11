@@ -1,7 +1,5 @@
 <template>
 <div>
-
-
   <z-button  v-if="files.find(r=>r[0]=='/')" @click="to_view('/',16384)" label="/" class="mx-2" /> 
   <z-button  v-if="files.find(r=>r[0]=='..')" @click="to_view('..',16384)" label="<<" class="mx-2" /> 
   <z-button  @click="get_api_data()" label="refresh"  class="mx-2" />
@@ -38,7 +36,6 @@
       </div >
     </div >
 
-
 </div>
 </template>
 
@@ -47,7 +44,6 @@ import {ref, onMounted, onActivated} from 'vue'
 import { useRouter} from 'vue-router'
 import LayoutDefault from '/src/components/LayoutDefault.vue'
 import ZButton from '/src/components/ZButton.vue'
-//import {showDialog} from '/src/components/Dialog.ts'
 import {backendUrl} from '/src/components/global_data'
 
 const files = ref([])
@@ -56,28 +52,21 @@ const currdir = ref(null)
 const router = useRouter()
 const loading = ref(false)
 
-//  console.log('router_34: ', router)
 
 function get_api_data(chdir=''){
   loading.value = true
-  //files.value = []
-  //setTimeout(()=>{
   fetch(`${backendUrl}api/ls/${chdir}`).then(async req => {
     if (req.ok) {
       const res: never[] = await req.json()
-      //categories.value.push(...res)
       if (!res) return
       files.value = res.files
       stats.value.free = res.free
       stats.value.total = res.total
       stats.value.used = res.used
       currdir.value = res.currdir
-
-      console.log('api_data_74: ', files.value)
-      //Object.assign( api_data.value, res)
+      //console.log('api_data_74: ', files.value)
     }
   }).finally(()=>loading.value = false)
-  //},555)
 }
 
 function delete_file(file_nm=''){
@@ -89,7 +78,6 @@ function delete_file(file_nm=''){
       } else alert('Ошибка, что-то пошло не так...')
     }).catch(err=> alert('Ошибка, что-то пошло не так...'))
   }
-  //setTimeout(get_api_data,17555)
 }
 
 
@@ -100,8 +88,6 @@ function to_view(file_nm, f_type){
     get_api_data(`?chdir=${file_nm}`)
   }
   if  (f_type === 32768) {  // is_dir
-    //get_api_data(`?chdir=${file_nm}`)
-
     router.push({name:'show_content',query:{file_name:file_nm}})
   }
 }
@@ -111,8 +97,6 @@ onActivated(()=>
     get_api_data()
   },9)
 )
-//setTimeout(get_api_data,1555)
-
 
 </script>
 

@@ -1,6 +1,5 @@
 <template>
 <div>
-
   <z-button  @click="$router.go(-1)" label="<<" class="mx-2" />
 
   <h3> {{$route.query.file_name}}</h3>
@@ -24,7 +23,6 @@ import { useRoute} from 'vue-router'
 
 import LayoutDefault from '/src/components/LayoutDefault.vue'
 import ZButton from '/src/components/ZButton.vue'
-//import {showDialog} from '/src/components/Dialog.ts'
 import {backendUrl} from '/src/components/global_data'
 
 const file_content = ref(null)
@@ -38,10 +36,8 @@ function get_api_data(file_name){
     if (req.ok) {
       const res = await req.text()
       //categories.value.push(...res)
-      //if (!res) return
       file_content.value = res
-      console.log('api_data_74: ', '=',res.slice(0,11))
-      //Object.assign( api_data.value, res)
+      //console.log('api_data_74: ', '=',res.slice(0,11))
     }
   }).finally(_=>loading.value=false)
 }

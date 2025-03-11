@@ -28,7 +28,8 @@
               Cron table:
             </div>
             <div style="overflow:auto; max-width: calc(100vw - 30px);" >
-            <div class="col-12 _px-2 " v-for="(r,i) in cron_list?.tasks" style="width: 600px;" >
+            <div class="col-12 _px-2 " v-for="(r,i) in cron_list?.tasks" style="width: 650px;" >
+              <z-button  @click="to_position(i)" :label="i+'.'" title="position" :class="{ch_index:ch_index===i}" />
               <z-button :class="[r[0] ? '_bg-positive': 'bg-secondary']" @click="r[0]=!r[0];changed=true" :label="r[0]?'o':'~'" _label="o" />
               <z-button  @click="set_schedule(r)" :label="r[1]" />
               <span class="px-2">{{r[2]}}</span>
@@ -41,8 +42,8 @@
 
           <div class="col-md-12 _col-6 px-2" style="flex-grow:1;">
             <div class="col-12 pa-2 align-ic" >
-              Command:
-              <span class="px-2"> <z-button v-if="changed" @click="save" label="Save" /> </span>
+              Command's:
+              <span class="px-2"> <z-button class="bg-warn" v-if="changed" @click="save" label="Save" /> </span>
             </div>
             <div class="col-12 _px-2 align-ic" v-for="(r,i) in cron_list?.cmd_list">
             {{r}} <z-button  @click="appent_task(r);changed=true" label="+" />
@@ -84,6 +85,7 @@ import {backendUrl} from '/src/components/global_data'
 const cron_list = ref(null)
 let actived_ = null
 const changed = ref(false)
+const ch_index = ref(null)
 
 function get_api_data(){
   if (changed==true) return
@@ -175,4 +177,24 @@ watch(()=> api_data.value.err, val=>{
     if (!val && actived_) get_api_data()
 })
 
+function to_position(ind){
+  if (ch_index.value===null){
+    ch_index.value = ind
+    return
+  }
+  if (ch_index.value==ind) {ch_index.value = null; return}
+  cron_list.value.tasks.splice(ind,0, cron_list.value.tasks.splice(ch_index.value,1)[0])
+  ch_index.value = null
+  changed.value = true
+}
+
 </script>
+
+
+<style>
+.ch_index{
+  background-color: #ffbb44 !important;
+}
+
+</style>
+

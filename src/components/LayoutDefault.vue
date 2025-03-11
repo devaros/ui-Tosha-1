@@ -11,9 +11,13 @@
 
       <img v-if="preload" v-show="false" key="2" src="/ios_spin.svg" class="ma-1" alt="py-Tosha logo"  />
 
-<h2 class="title text-h2">
+<div style="position: relative;">
+        <Transition name="blurslide" appear>
+<h2 class="title text-h2" :key="$route.meta.label || 'py-Tosha'">
       {{$route.meta.label || 'py-Tosha'}}
 </h2>
+        </Transition>
+</div>
   </header>
 
   <main style="_padding-left: 50px;">
@@ -180,6 +184,44 @@ main{
   _position: fixed;
   opacity: 0;
 }
+
+
+
+._blurslide-enter-active, ._blurslide-enter-to{
+  _position: absolute;
+}
+
+.blurslide-leave-from {
+  top:0px;
+  filter: blur(0px);
+  opacity: 1;
+}
+.blurslide-leave-active {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all 0.6s ease-in;
+  filter: blur(20px);
+  opacity: 0;
+  top:-20px;
+}
+
+.blurslide-enter-active{
+  transition: all 0.4s ease-out;
+  position: relative;
+  opacity: 0;
+  left: 0px;
+  top: 30px;
+  filter: blur(10px);
+}
+
+.blurslide-enter-to{
+  filter: blur(0px);
+  top: 0px;
+  opacity: 1;
+}
+
+
 
 footer {
   background-color: #ffffff;

@@ -194,6 +194,8 @@ button:focus-visible {
   max-width: 1120px;
 }
 
+
+
 .row{
   display: flex;
   flex-direction: row;

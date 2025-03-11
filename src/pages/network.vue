@@ -6,7 +6,7 @@
   <h2 class="ma-2 "> Network connection</h2>
 
   <div class="row  px-2 ">
-    <div class="list_files_ col-4 col-sm-12 _align-ic" style="padding-top: 8px;">
+    <div class="list_files_ col-4 col-sm-12 justify-cc" style="padding-top: 8px;">
       Список доступных сетей:
     </div>
     <div class="list_files col-8 col-sm-12">
@@ -24,7 +24,6 @@
       </div>
     </div>
   </div>
-
 
 </div>
 </template>
@@ -50,15 +49,12 @@ function wifi_scan(){
     if (req.ok) {
       const res = await req.json() // .available // .connected
       connected.value = res.connected
-      //if (!res) return
       //console.log('api_data_74: ', res)
-      //res = res.filter(r=> scanned.value.find(r2=> r2[0]!=r[0]) )
       scanned.value = scanned.value.filter(r=> (!res.available.find(r2=> r[1]==r2[1])) && ((r[6]+6) > ~~(Date.now()/1000/60)) )
       scanned.value.push(
          ...res.available.map(r=> {r[0] = r[0] || r[1]; r[6] = ~~(Date.now()/1000/60); return r } )
       )
       scanned.value =  scanned.value.sort((a,b)=> (a[3] > b[3]) ? -1 : (a[3] < b[3]) ? 1 : 0 )
-      //Object.assign( api_data.value, res)
     }
   }).finally(()=>{
     loading_scan.value = false
@@ -86,8 +82,6 @@ function wifi_config_delete(){
   }
 }
 
-
-
 function wifi_config(ssid){
   if (loading_scan.value) return
   const pswd =  prompt(`Введите ключ подключения к сетти ${ssid}`, '')
@@ -103,7 +97,6 @@ function wifi_config(ssid){
     })
   }
 }
-
 
 onActivated(()=>{
   wifi_scan()
