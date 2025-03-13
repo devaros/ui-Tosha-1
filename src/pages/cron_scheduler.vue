@@ -16,20 +16,21 @@
 
     <h3>Cron tab</h3>
 
-    <div class="row pa-2" >
+    <div class="row pa-md-2" >
       <div class="col-md-12 _col-4 px-2 text-b">
       {{cron_list?.name}}
       </div>
-      <div class="col-md-12_ _col-8 px-2">
+      <div class="col-md-12 _col-8 _px-2">
 
         <div class="row pa-md-2" >
-          <div class="col-md-12 _col-6 pa-md-2"  style="flex-grow:1;">
+          <div class="col-md-12 _col-6 _pa-md-2"  style="flex-grow:1;">
             <div class="col-12 px-2" >
               Cron table:
             </div>
-            <div style="overflow:auto; max-width: calc(100vw - 30px);" >
-            <div class="col-12 _px-2 " v-for="(r,i) in cron_list?.tasks" style="width: 650px;" >
-              <z-button  @click="to_position(i)" :label="i+'.'" title="position" :class="{ch_index:ch_index===i}" />
+
+            <div class="col-12 pa-2  " v__for="(r,i) in cron_list?.tasks" __style="width: 650px;" style="overflow:auto; _max-width: calc(100vw - 30px);"  >
+            <div class=" _mx-2 d-flex_ tab_wrap" v-for="(r,i) in cron_list?.tasks"  :class="{ up: ch_index===i && ch_index>ch_idx_move  , down: ch_index===i && ch_index<ch_idx_move }" >
+              <z-button  @click="to_position(i)" :label="ch_index===i?'<>':i+'.'" title="position" :class="{ch_index:ch_index===i}" />
               <z-button :class="[r[0] ? '_bg-positive': 'bg-secondary']" @click="r[0]=!r[0];changed=true" :label="r[0]?'o':'~'" _label="o" />
               <z-button  @click="set_schedule(r)" :label="r[1]" />
               <span class="px-2">{{r[2]}}</span>
@@ -37,7 +38,7 @@
               <z-button  @click="set_label(r)" :label="r[4]" />
               <z-button  @click="cron_list.tasks.splice(i,1);changed=true" label="-" />
             </div>
-          </div>
+            </div>
           </div>
 
           <div class="col-md-12 _col-6 px-2" style="flex-grow:1;">
@@ -51,7 +52,7 @@
           </div>
         </div>
 
-      <pre class="txt-left" style="white-space: break-spaces;">
+      <pre class="txt-left pa-md-2_ pa-2" style="white-space: break-spaces;">
 Schedule string: "* * * * *" as position "mm hh dw dd my" where:
 mm - minutes,
 hh - hours,
@@ -86,6 +87,7 @@ const cron_list = ref(null)
 let actived_ = null
 const changed = ref(false)
 const ch_index = ref(null)
+const ch_idx_move = ref(undefined)
 
 function get_api_data(){
   if (changed==true) return
@@ -182,19 +184,69 @@ function to_position(ind){
     ch_index.value = ind
     return
   }
-  if (ch_index.value==ind) {ch_index.value = null; return}
-  cron_list.value.tasks.splice(ind,0, cron_list.value.tasks.splice(ch_index.value,1)[0])
-  ch_index.value = null
-  changed.value = true
+  if (ch_index.value==ind) {ch_index.value = null; ch_idx_move.value = undefined; return}
+
+  ch_idx_move.value = ind
+  setTimeout(()=>{
+    cron_list.value.tasks.splice(ind,0, cron_list.value.tasks.splice(ch_index.value,1)[0])
+    ch_index.value = null
+    changed.value = true
+    ch_idx_move.value = undefined
+  },455)
 }
 
 </script>
 
 
-<style>
+<style scoped>
+.btn{
+  white-space: nowrap;
+}
+.col-12{
+  _max-width: calc(100vw - var(--md-2));
+  flex-flow: nowrap;
+    overflow: auto;
+    flex-direction: column;
+    align-items: start;
+}
+
 .ch_index{
   background-color: #ffbb44 !important;
 }
+.tab_wrap{
+  white-space: nowrap;
+  _transition: all 1.4s;
+}
 
+.up, .down{
+  transition: all 0.3s;
+}
+.up{
+  transform: translateY(-40px);
+  opacity: 0;
+}
+.down{
+  transform: translateY(40px);
+  opacity: 0;
+}
+</style>
+
+
+<style >
+.ch_index > span{
+  animation: ani_el867 1s infinite;
+}
+@keyframes ani_el867{
+  0%{
+    transform: rotateZ(75deg);
+  }
+  50%{
+    transform: rotateZ(105deg);
+  }
+  100%{
+    transform: rotateZ(75deg);
+  }
+
+}
 </style>
 

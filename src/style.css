@@ -11,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --md-2: 0px;
 }
 
 a {
@@ -110,6 +111,10 @@ button:focus-visible {
 .ma-1{
   margin: 4px;
 }
+.my-1{
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
 .my-2{
   margin-top: 8px;
   margin-bottom: 8px;
@@ -147,7 +152,6 @@ button:focus-visible {
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.8s ease;
-  _left: 25px;
 }
 
 .fade-enter-from,
@@ -167,15 +171,14 @@ button:focus-visible {
   max-height: calc(90dvh - 84px);
   overflow: hidden;
   opacity: 0.0;
-  _width: 1200px;
   max-width: 1120px;
 }
 @media (min-width: 800.00px) {
   .pagefade-leave-active {
-    left: 25px;
+    left: 50px;
   }
 }
-@media (min-width: 1200.00px) {
+__media (min-width: 1200.00px) {
   .pagefade-leave-active {
     left: 50px;
   }
@@ -200,6 +203,7 @@ button:focus-visible {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .col-3{
@@ -227,8 +231,11 @@ button:focus-visible {
 
 
 @media (min-width: 600.00px) {
+  :root {
+    --md-2: 8px;
+  }
   .pa-md-2{
-    padding: 8px;
+    padding: var(--md-2);
   }
 }
 
@@ -273,6 +280,9 @@ button:focus-visible {
   flex-wrap: wrap;
 
 }
+.space{
+  flex-grow: 9;
+}
 
 .align-ic{
   align-items: center;
@@ -287,6 +297,9 @@ button:focus-visible {
   text-align: center;
 }
 
+.txt-primary{
+  color: #069 !important;
+}
 .bg-warn{
   background-color: orange !important;
 }

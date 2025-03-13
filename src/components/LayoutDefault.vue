@@ -194,22 +194,22 @@ main{
 .blurslide-leave-from {
   top:0px;
   filter: blur(0px);
-  opacity: 1;
+  opacity: 1.0;
 }
 .blurslide-leave-active {
   position: absolute;
   left: 0;
   top: 0;
-  transition: all 0.6s ease-in;
+  transition: all 0.5s ease-in 0.1s;
   filter: blur(20px);
-  opacity: 0;
+  opacity: 0.0;
   top:-20px;
 }
 
 .blurslide-enter-active{
   transition: all 0.4s ease-out;
   position: relative;
-  opacity: 0;
+  opacity: 0.0;
   left: 0px;
   top: 30px;
   filter: blur(10px);
@@ -218,7 +218,7 @@ main{
 .blurslide-enter-to{
   filter: blur(0px);
   top: 0px;
-  opacity: 1;
+  opacity: 1.0;
 }
 
 
