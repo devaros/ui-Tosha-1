@@ -3,6 +3,7 @@
 
     <z-button  @click="$router.go(-1)" label="<<" class="mx-2" />
     <z-button  @click="changed=false;refresh()" label="refresh" />
+    <z-button  @click="changed=false;get_api_data_reload()" label="reload" />
 
     <div class="row pa-2">
       <div class="col-4 col-sm-6 pa-2 justify-cc" :class="{'bg-warn':api_data.err}">
@@ -94,16 +95,26 @@ function get_api_data(){
   fetch(`${backendUrl}api/cron/ls`).then(async req => {
     if (req.ok) {
       const res = await req.json()
-      //if (!res) return
       //console.log('api_data_75: ', res)
       cron_list.value = res
       changed.value = false
-      //Object.assign( api_data.value, res)
     } else {
       sys_info.value = []
     }
   }).catch(err=> sys_info.value = [] )
-  //setTimeout(get_api_data,17555)
+}
+
+function get_api_data_reload(){
+  if (changed==true) return
+  fetch(`${backendUrl}api/cron/ls/reload`).then(async req => {
+    if (req.ok) {
+      const res = await req.json()
+      cron_list.value = res
+      changed.value = false
+    } else {
+      sys_info.value = []
+    }
+  }).catch(err=> sys_info.value = [] )
 }
 
 const get_api_date = computed(()=>{
