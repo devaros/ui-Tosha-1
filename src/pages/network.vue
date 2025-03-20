@@ -45,7 +45,7 @@ let tt_
 function wifi_scan(){
   if (loading_scan.value) return
   loading_scan.value = true
-  fetch(`${backendUrl}api/net/scan`).then(async req => {
+  fetch(`${backendUrl.value}api/net/scan`).then(async req => {
     if (req.ok) {
       const res = await req.json() // .available // .connected
       connected.value = res.connected
@@ -71,7 +71,7 @@ function wifi_config_delete(){
   if (confirm("Подтвердите действие - забыть сеть")) {
     loading_scan.value = true
     const options = {method:'delete',}
-    fetch(`${backendUrl}api/net/config`, options).then(async req => {
+    fetch(`${backendUrl.value}api/net/config`, options).then(async req => {
       if (req.ok) {
         connected.value=''
       }
@@ -88,7 +88,7 @@ function wifi_config(ssid){
   if (pswd) {
     loading_scan.value = true
     const options = {method:'post', body: JSON.stringify({ssid, pswd}) }
-    fetch(`${backendUrl}api/net/config`, options).then(async req => {
+    fetch(`${backendUrl.value}api/net/config`, options).then(async req => {
       if (req.ok) {
       }
     }).finally(()=>{

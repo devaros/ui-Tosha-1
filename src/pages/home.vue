@@ -9,8 +9,9 @@
   <div><z-button ladge to="/info" label="info" /></div>
 
   <div><z-button ladge to="/switches" label="switches" /></div>
-
   <div><z-button ladge to="/cron_scheduler" label="scheduler" /></div>
+
+  <div><z-button ladge to="/servers_api" label="servers-api list" /></div>
 
   <div><z-button ladge to="/settings" label="settings" /></div>
 

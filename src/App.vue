@@ -1,42 +1,45 @@
 <template>
 <LayoutDefault :class="{over_hide}" >
-
-
-
 </LayoutDefault>
-
 </template>
 
 
 <script setup lang="ts">
-import {ref, getCurrentInstance } from 'vue'
+import {ref, getCurrentInstance, watch } from 'vue'
 import LayoutDefault from '/src/components/LayoutDefault.vue'
 import {api_data} from './components/global_data'
 import {backendUrl} from '/src/components/global_data'
 
 const over_hide = ref(false)
 
+backendUrl.value = localStorage.getItem('current_host') || '/'
+
+let tt_ = 111
+
 function get_api_data(){
-  
-  fetch(`${backendUrl}api/data`).then(async req => {
-    if (req.ok) {
+  let trans = tt_
+  fetch(`${backendUrl.value}api/data`).then(async req => {
+    if (req.ok && trans === tt_) {
       const res: never[] = await req.json()
       //categories.value.push(...res)
       if (!res) return
       api_data.value = res
-      Object.assign( api_data.value, res)
+      //Object.assign( api_data.value, res)
     }
   }).catch(err=>{
-    //if (api_data.value.mem_free)
-    api_data.value.err = true
+    if (trans === tt_)  api_data.value.err = true
   })
-  .finally(()=>
-    setTimeout(get_api_data,22555)
-    
-  )
+  .finally(()=>{
+    if (trans === tt_)  tt_ = setTimeout(get_api_data,22555)
+  })
 }
 
 setTimeout(get_api_data,2555)
+
+watch(()=> backendUrl.value, (val)=>{
+  console.log('watch_67: ', val)
+  clearTimeout(tt_); tt_=null; api_data.value = {}; get_api_data()
+})
 
 </script>
 

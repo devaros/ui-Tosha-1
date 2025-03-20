@@ -42,7 +42,7 @@ function get_api_data(){
   //EventSource.OPEN = 1;       // connected
   //EventSource.CLOSED = 2;     // connection closed
   if (evtSource) evtSource.close()
-  evtSource = new EventSource(`${backendUrl}api/switches/ls/?check_id=${check_id}`, {
+  evtSource = new EventSource(`${backendUrl.value}api/switches/ls/?check_id=${check_id}`, {
     __withCredentials: true, 
     __heartbeatTimeout: 120000,
   })
@@ -69,7 +69,7 @@ function set_api_state(r){
 
   const options={method:'put',body:JSON.stringify([{id:r.id,value:r.value}])}
 
-  fetch(`${backendUrl}api/switches/set`,options).then(async req => {
+  fetch(`${backendUrl.value}api/switches/set`,options).then(async req => {
     if (req.ok) {
       //const res = await req.json()
       //if (!res) return

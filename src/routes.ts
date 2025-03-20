@@ -28,6 +28,7 @@ const routes = [
         path: "/show_content", name:"show_content", meta:{label:'file content'},
         component: ()=>import('./pages/show_content.vue') //Info
     },
+
     {
         path: "/switches", name:"switches", meta:{label:'switches'},
         component: ()=>import('./pages/switches.vue') //switches
@@ -40,6 +41,11 @@ const routes = [
         path: "/settings", name:"settings", meta:{label:'settings'},
         component: ()=>import('./pages/settings.vue') 
     },
+    {
+        path: "/servers_api", name:"servers_api", meta:{label:'servers-api list'},
+        component: ()=>import('./pages/servers_api.vue') 
+    },
+
 ];
 
 const router = createRouter({

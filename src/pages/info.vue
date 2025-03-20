@@ -58,7 +58,7 @@ let actived_ = null
 
 function get_api_data(){
 
-  fetch(`${backendUrl}api/status`).then(async req => {
+  fetch(`${backendUrl.value}api/status`).then(async req => {
     if (req.ok) {
       const res = await req.json()
       //if (!res) return

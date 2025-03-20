@@ -11,13 +11,13 @@
 
       <img v-if="preload" v-show="false" key="2" src="/ios_spin.svg" class="ma-1" alt="py-Tosha logo"  />
 
-<div style="position: relative;">
+      <div style="position: relative;">
         <Transition name="blurslide" appear>
-<h2 class="title text-h2" :key="$route.meta.label || 'py-Tosha'">
-      {{$route.meta.label || 'py-Tosha'}}
-</h2>
+          <h2 class="title text-h2" :key="$route.meta.label || 'py-Tosha'">
+            {{$route.meta.label || 'py-Tosha'}}
+          </h2>
         </Transition>
-</div>
+      </div>
   </header>
 
   <main style="_padding-left: 50px;">
@@ -33,7 +33,7 @@
       _after-enter="over_hide=false"
       _enter-cancelled="over_hide=false"
     >
-        <keep-alive max="3" >
+        <keep-alive max="3" :key="backendUrl" >
           <component :is="Component" class="viewG" />
         </keep-alive>
     </Transition >
@@ -60,7 +60,7 @@ import {ref, watch, computed} from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ZButton from './ZButton.vue'
 let show_a = ref(true)
-import {api_data} from './global_data'
+import {api_data, backendUrl} from './global_data'
 import nav_bar from "./Nav_Bar.vue"
 
 const route = useRoute();
@@ -152,15 +152,24 @@ main{
 
 @media (max-width: 960.00px) {
   main{
-    _max-width: 100vw;
+    _max-width: calc(100vw - 50px);
+  }
+}
+
+@media (max-width: 800.00px) {
+  .view{
+    max-width: 100vw !important;
   }
 }
 
 .view{
   width: 100%;
-  max-width: 1130px;
+  _max-width: 1150px;
+  max-width: calc(100% - 50px);
+  _max-width: inherit;
   padding-bottom: 30px;
   _position: relative;
+  display: table;
 }
 
 
@@ -170,9 +179,6 @@ main{
 
 .fade-enter-active,
 .fade-leave-active {
-  _position: absolute;
-  _position: fixed;
-  _transition: opacity 2.5s ease;
 }
 
 .fade-enter-to{

@@ -92,7 +92,7 @@ const ch_idx_move = ref(undefined)
 
 function get_api_data(){
   if (changed==true) return
-  fetch(`${backendUrl}api/cron/ls`).then(async req => {
+  fetch(`${backendUrl.value}api/cron/ls`).then(async req => {
     if (req.ok) {
       const res = await req.json()
       //console.log('api_data_75: ', res)
@@ -106,7 +106,7 @@ function get_api_data(){
 
 function get_api_data_reload(){
   if (changed==true) return
-  fetch(`${backendUrl}api/cron/ls/reload`).then(async req => {
+  fetch(`${backendUrl.value}api/cron/ls/reload`).then(async req => {
     if (req.ok) {
       const res = await req.json()
       cron_list.value = res
@@ -175,7 +175,7 @@ function save(){
 
   const options = {method:'put', body: JSON.stringify(cron_list.value.tasks)}
 
-  fetch(`${backendUrl}api/cron/set`, options).then(async req => {
+  fetch(`${backendUrl.value}api/cron/set`, options).then(async req => {
     if (req.ok) {
       get_api_data()
     } else {
