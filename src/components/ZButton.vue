@@ -7,8 +7,8 @@
   <template v-else >
     <a class="btn my-2  _mx-auto" :class="{ladge:ladge}" _to="to">
       <slot name="prepend" />
-      <img v-if="loading" src="/ios_spin.svg" />
-      <span v-else class="mx-2">{{label}}</span>
+      <img v-if="loading" src="/assets2/ios_spin.svg" />
+      <span v-else class="mx-2" style="    flex-grow: 1;">{{label}}</span>
     </a>
   </template>
 </template>

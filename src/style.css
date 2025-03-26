@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --md-2: 0px;
+  --md-3: 0px;
 }
 
 a {
@@ -25,6 +26,9 @@ a:hover {
 
 body {
   font-size: 18px;
+  color: #213547;
+  background-color:#eeeeee; 
+
 }
 textarea{
   font-size: 1.2rem;
@@ -96,6 +100,17 @@ button:focus-visible {
   max-width: 100vw;
    overflow: auto;
 }
+
+
+
+@media (max-resolution: 191dpi) {
+/* if desktop devicce*/
+}
+
+@media (min-resolution: 192dpi) {
+/* if mobile devicce*/
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -236,9 +251,13 @@ __media (min-width: 1200.00px) {
 @media (min-width: 600.00px) {
   :root {
     --md-2: 8px;
+    --md-3: 12px;
   }
   .pa-md-2{
-    padding: var(--md-2);
+    padding: var(--md-2) var(--md-3);
+  }
+  .ma-md-2{
+    margin: var(--md-2) var(--md-3);
   }
 }
 

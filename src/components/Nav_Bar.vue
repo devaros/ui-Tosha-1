@@ -18,13 +18,13 @@
 //import {ref} from 'vue'
 
 const items = [
-  {img:'/net_wifi.svg',to:'/network',label:'network'},
-  {img:'/folder_files.svg',to:'/files',label:'files'},
-  {img:'/info.svg',to:'/info',label:'info'},
-  {img:'/switches.svg',to:'/switches',label:'switch'},
-  {img:'/schedule.svg',to:'/cron_scheduler',label:'scheduler'},
+  {img:'/assets2/net_wifi.svg',to:'/network',label:'network'},
+  {img:'/assets2/folder_files.svg',to:'/files',label:'files'},
+  {img:'/assets2/info.svg',to:'/info',label:'info'},
+  {img:'/assets2/switches.svg',to:'/switches',label:'switch'},
+  {img:'/assets2/schedule.svg',to:'/cron_scheduler',label:'scheduler'},
   {img:'',to:'',label:''},
-  {img:'/settings.svg',to:'/settings',label:'settings'},
+  {img:'/assets2/settings.svg',to:'/settings',label:'settings'},
 ]
 
    

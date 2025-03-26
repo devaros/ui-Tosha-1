@@ -1,24 +1,19 @@
 <template>
   <div>
+    <standard_det v-if="$route.query?.nm_module" />
 
-    <z-button  @click="$router.go(-1)" label="<<" class="mx-2" />
-    <h3>Switch view block </h3>
+    <div v-if="!$route.query?.nm_module" >
+      <h3> Standard modules </h3>
 
-    <div class="row px-2" >
-      <div class="col-6 col-md-12 px-2 _text-b align-ic" v-for="(r) in switches?.data">
-        <z-button  @click="r.value = !r.value;set_api_state(r)" ladge :label="r?.name || 'switch'" >
-          <template v-slot:prepend="">
-          <div  class="lamp" :class="{on:r.value===1, off:r.value===0}" _label="switch" ></div>
-          </template >
 
-        </z-button>
-        <div  class="lamp" :class="{on:r.value===1, off:r.value===0}" _label="switch" ></div>
-        <span class="mx-2">
-        {{r.id}} = {{r.value}}
-        </span>
+      <div class="row px-2" >
+        <div class="col-6 col-md-12 px-2 _text-b align-ic justify-cc" v-for="(r) in modules">
+          <z-button  @click="set_page(r)" ladge :label="r[1]" >
+          </z-button>
+        </div>
       </div>
+
     </div>
-tt: {{switches?.time}} 
 
   </div>
 </template>
@@ -26,17 +21,37 @@ tt: {{switches?.time}}
 
 <script setup lang="ts">
 import {ref, onMounted, onActivated, onDeactivated } from 'vue'
-//import { useRoute} from 'vue-router'
+import {useRouter} from 'vue-router'
 
 import LayoutDefault from '/src/components/LayoutDefault.vue'
 import ZButton from '/src/components/ZButton.vue'
 import {backendUrl} from '/src/components/global_data'
+import standard_det from './standard_det.vue'
 
-const switches = ref(null)
+const modules = ref(null)
 let evtSource 
 let check_id = 0
 
+const router = useRouter()
+
 function get_api_data(){
+  //loading.value = true
+  fetch(`${backendUrl.value}api/standard/ls`).then(async req => {
+    if (req.ok) {
+      //edit_mode.value = false
+      const res = await req.json()
+      modules.value = res.modules
+      //categories.value.push(...res)
+      //file_content.value = res
+      //lines.value = res.split("\n")
+      //modified.value = false
+      //console.log('api_data_71: ', file_content.value.slice(0,111))
+    }
+  }) //.finally(_=>loading.value=false)
+}
+
+
+function get_api_data2(){
     //evtSource.readyState
   //EventSource.CONNECTING = 0; // connecting or reconnecting
   //EventSource.OPEN = 1;       // connected
@@ -80,6 +95,11 @@ function set_api_state(r){
   })
   //setTimeout(get_api_data,17555)
 }
+
+function set_page([nm_module, label]){
+  router.push({name:'standard',params:{nm_module},query:{nm_module, label}})
+}
+
 
 function refresh(){
   get_api_data()

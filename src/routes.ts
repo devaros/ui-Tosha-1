@@ -34,6 +34,11 @@ const routes = [
         component: ()=>import('./pages/switches.vue') //switches
     },
     {
+        path: "/standard/:nm_module?", name:"standard", meta:{label:'standard'},
+        component: ()=>import('./pages/standard.vue') //standard
+    },
+
+    {
         path: "/cron_scheduler", name:"cron_scheduler", meta:{label:'scheduler'},
         component: ()=>import('./pages/cron_scheduler.vue') 
     },

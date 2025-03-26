@@ -33,7 +33,7 @@
         <div v-for="(k,r2) in r.state" class="txt-left">
           <b class="txt-primary">{{r2}}</b>={{k}}
         </div>
-{{r.state}}
+
       </div>
 
 

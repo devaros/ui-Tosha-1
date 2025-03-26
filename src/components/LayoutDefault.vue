@@ -3,13 +3,13 @@
   <header>
       <router-link to="/" _target="_blank" class="logo " :class="{home:$route.name!='home'}">
         <Transition name="fade">
-          <img v-if="show_a" key="1" src="/py-tosha-a.svg" class="ma-1" alt="py-Tosha logo" />
-          <img v-else key="2" src="/py-Tosha.svg" class="ma-1" alt="py-Tosha logo"  />
+          <img v-if="show_a" key="1" src="/assets2/py-tosha-a.svg" class="ma-1" alt="py-Tosha logo" />
+          <img v-else key="2" src="/assets2/py-Tosha.svg" class="ma-1" alt="py-Tosha logo"  />
         </Transition>
-          <img v-if="preload" v-show="false" key="2" src="/py-Tosha.svg" class="ma-1" alt="py-Tosha logo"  />
+          <img v-if="preload" v-show="false" key="2" src="/assets2/py-Tosha.svg" class="ma-1" alt="py-Tosha logo"  />
       </router-link>
 
-      <img v-if="preload" v-show="false" key="2" src="/ios_spin.svg" class="ma-1" alt="py-Tosha logo"  />
+      <img v-if="preload" v-show="false" key="2" src="/assets2/ios_spin.svg" class="ma-1" alt="py-Tosha logo"  />
 
       <div style="position: relative;">
         <Transition name="blurslide" appear>
@@ -143,7 +143,7 @@ main{
   _padding-right: 6px;
   _padding-bottom: 26px;
   margin: 2px auto;
-  background-color: aliceblue;
+  background-color: #ebf9fb;
   border-top: solid 2px #306998;
   border-bottom: solid 2px #306998;
   position: relative;
