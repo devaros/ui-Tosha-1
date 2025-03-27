@@ -39,8 +39,8 @@ const current_host = ref(backendUrl)
 const servers_list = ref([
   {name:"main-this '/'", host:"/", state:""},
   {name:"PLC- reserv .1.108", host:"http://192.168.1.108/", state:""},
-  {name:"PLC-holl-2 .5.115", host:"http://192.168.5.115/", state:""},
-  {name:"PLC-pole-3 .5.166", host:"http://192.168.5.166/", state:""},
+  {name:"PLC-holl-2 .5.120", host:"http://192.168.5.120/", state:""},
+  {name:"PLC-pole-3 .5.111", host:"http://192.168.5.111/", state:""},
   {name:"PLC-wirpool-4 .1.108", host:"http://192.168.1.108/", state:""},
 ])
 
