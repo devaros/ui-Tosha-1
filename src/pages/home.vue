@@ -8,7 +8,6 @@
   <div><z-button ladge to="/files" label="files" /></div>
   <div><z-button ladge to="/info" label="info" /></div>
 
-  <div><z-button ladge to="/switches" label="switches" /></div>
   <div><z-button ladge to="/standard" label="standard" /></div>
   <div><z-button ladge to="/cron_scheduler" label="scheduler" /></div>
 

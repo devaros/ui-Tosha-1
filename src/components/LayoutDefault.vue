@@ -13,9 +13,9 @@
 
       <div style="position: relative;">
         <Transition name="blurslide" appear>
-          <h2 class="title text-h2" :key="$route.meta.label || 'py-Tosha'">
+          <h3 class="title text-h2" :key="$route.meta.label || 'py-Tosha'">
             {{$route.meta.label || 'py-Tosha'}}
-          </h2>
+          </h3>
         </Transition>
       </div>
   </header>
@@ -44,11 +44,11 @@
   </main>
   <footer>
     <ul>
-    <li :class="{'bg-warn':api_data.err}">
-      {{ get_api_data }}
-    </li>
-    <li :class="{'bg-warn':api_data.err}">mem: {{~~(api_data.mem_free/100)/10}}k</li>
-    <li :class="{'bg-warn':api_data.err}">cpu: {{~~(api_data.load*100+1)}}%</li>
+    <li :class="{'bg-warn':api_data.err}"> {{ get_api_date }} </li>
+    <li :class="{'bg-warn':api_data.err}">m<span class="d-sm-none">em</span>: {{~~(api_data.mem_free/100)/10}}k</li>
+    <li :class="{'bg-warn':api_data.err}"><span class="d-sm-none">cpu: </span>{{~~(api_data.load*100+1)}}%</li>
+    <li :class="{'bg-warn':api_data.err || api_data.cou_req==5, 'bg-err': api_data.cou_req>5 }">r<span class="d-sm-none">eq</span>: {{api_data.cou_req}}</li>
+
     </ul>
   </footer>
   </div>
@@ -68,7 +68,7 @@ let preload = ref(false)
 setTimeout(()=>preload.value = true,2222)
 
 
-const get_api_data = computed(()=>{
+const get_api_date = computed(()=>{
     //console.log('api_data: ', api_data.value, 2)
     return api_data.value?.datetime && new Date(api_data.value.datetime ).toISOString().slice(8,16).replace('T',' ')
   }
@@ -110,7 +110,7 @@ header > *{
   border-radius: 8px;
 }
 .title{
-  min-width:220px;
+  width:420px;
   white-space: pre-wrap;
   max-width: calc(99vw - 140px);
   text-wrap: wrap;

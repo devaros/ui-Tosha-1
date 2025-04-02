@@ -2,23 +2,14 @@
   <div>
 
     <z-button  @click="$router.go(-1)" label="<<" class="mx-2" />
-    <h3 v-if="0"> {{label_module}} </h3>
-
-    <template v-for="group in controls" >
+    <h3> {{label_module}} </h3>
 
     <div class="row px-2" >
-      <h5 class="col-12  _pa-md-2  justify-cc">
-         {{group.label}}
-      </h5>
-    </div>
+      <div class="col-4 col-md-6 col-sm-12  px-2 pa-md-2 _text-b align-ic justify-cc" v-for="(r) in controls">
 
-    <div class="row px-2" v_for="group in controls" >
-
-      <div class="col-4 col-md-6 col-sm-12  px-2 pa-md-2 _text-b align-ic justify-cc" v-for="(r,i) in group.data">
-
-        <z-indicator v-if="r.indicator!='digital' || !['digital'].includes(r.control)" :value="r" _click="set_page(r)" :group="group" @change="onchange_value" style="flex-grow: 2;" > {{r.name}}
+        <z-indicator v-if="r.indicator!='digital' || !['digital'].includes(r.control)" :value="r" @click="set_page(r)" style="flex-grow: 2;" > {{r.name}}
         </z-indicator>
-        <z-button v-if="['digital'].includes(r.control)" _class="ma-md-2" @click="set_api_state(r, !r.value, group)" style="flex-grow: 1;" ladge :label="r.name" > *
+        <z-button v-if="['digital'].includes(r.control)" _class="ma-md-2" @click="set_api_state(r, !r.value)" style="flex-grow: 1;" ladge :label="r.name" > *
           <template v-slot:prepend="" v-if="r.indicator=='digital'">
           <div  class="lamp" :class="{on:r.value===1, off:r.value===0}" _label="switch" ></div>
           </template >
@@ -28,14 +19,12 @@
       </div>
     </div>
 
-    </template >
-
   </div>
 </template>
 
 
 <script setup lang="ts">
-import {ref, reactive, onMounted, onActivated, onDeactivated, watch, onUnmounted } from 'vue'
+import {ref, onMounted, onActivated, onDeactivated, watch, onUnmounted } from 'vue'
 import {useRoute} from 'vue-router'
 
 import LayoutDefault from '/src/components/LayoutDefault.vue'
@@ -43,15 +32,32 @@ import ZButton from '/src/components/ZButton.vue'
 import ZIndicator from '/src/components/ZIndicator.vue'
 import {backendUrl} from '/src/components/global_data'
 
-//const controls = ref(null)
-const controls = ref([])
+const controls = ref(null)
 let evtSource 
 let check_id = 0
 
 const route = useRoute()
 const nm_module = ref(null)
-const nm_group = ref(null)
 const label_module = ref(null)
+
+function get_api_data2(){
+  //loading.value = true
+  nm_module.value = route.query?.nm_module
+  fetch(`${backendUrl.value}api/standard/${nm_module.value}`).then(async req => {
+    if (req.ok) {
+      //edit_mode.value = false
+      const res = await req.json()
+      nm_module.value = res.data.name
+      label_module.value = res.data.label
+      controls.value = res.data.data
+      //categories.value.push(...res)
+      //file_content.value = res
+      //lines.value = res.split("\n")
+      //modified.value = false
+      //console.log('api_data_71: ', file_content.value.slice(0,111))
+    }
+  }) //.finally(_=>loading.value=false)
+}
 
 
 function get_api_data(){
@@ -62,8 +68,7 @@ function get_api_data(){
   if (evtSource) evtSource.close()
   //nm_module.value = route.query?.nm_module
 
-  const lnk = nm_group.value || nm_module.value
-  evtSource = new EventSource(`${backendUrl.value}api/standard/grp/${lnk}`, {
+  evtSource = new EventSource(`${backendUrl.value}api/standard/${nm_module.value}`, {
     __withCredentials: true, 
     __heartbeatTimeout: 120000,
   })
@@ -76,18 +81,7 @@ function get_api_data(){
       //switches.value = res
       nm_module.value = res.name
       label_module.value = res.label
-
-      const name = res.name
-      const ind = controls.value.findIndex(r=> r.name == name)
-      //console.log('evtSource_message_22: ', ind, res);
-      if (ind>=0){
-        controls.value[ind] = res
-        //controls.value = [123]
-      } else {
-        controls.value.push(res)
-      }
-        //controls.value = [...controls.value]
-      //controls.value = res.data
+      controls.value = res.data
 
     }catch(err){
       console.warn('evtSource_message_22: ',  event.data.slice(0,4), event.data, err);
@@ -101,9 +95,9 @@ function get_api_data(){
   //evtSource.close();
 }
 
-function set_api_state(r, val, group){
+function set_api_state(r, val){
   const options={method:'put',body:JSON.stringify([{id:r.id,value:val}])}
-  fetch(`${backendUrl.value}api/standard/set/${group.name}`,options).then(async req => {
+  fetch(`${backendUrl.value}api/standard/set/${nm_module.value}`,options).then(async req => {
     if (req.ok) {
     }
   })
@@ -118,7 +112,7 @@ function refresh(){
 //  console.log('onSetup_28: ',  )
 
 watch(()=>route.query?.nm_module, val=>{
-    //console.log('onWatch_29: ', val )
+    console.log('onWatch_29: ', val )
   if (val && val !== nm_module.value) {
     if (evtSource) evtSource.close()
     get_api_data()
@@ -128,20 +122,12 @@ watch(()=>route.query?.nm_module, val=>{
 
 onMounted(()=>{
   nm_module.value = route.query?.nm_module
-  nm_group.value = route.params?.nm_group
-  label_module.value = route.query?.label
-  controls.value.push({name:nm_module.value})
   get_api_data()
 })
 
 onUnmounted(()=>{
     if (evtSource) evtSource.close()
 }) 
-
-function onchange_value(obj){
-  console.log('onchange_value: ', obj);
-  set_api_state(obj.r, obj.value, obj.group)
-}
 
 </script>
 

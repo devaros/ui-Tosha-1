@@ -21,10 +21,8 @@ function get_api_data(){
   fetch(`${backendUrl.value}api/data`).then(async req => {
     if (req.ok && trans === tt_) {
       const res: never[] = await req.json()
-      //categories.value.push(...res)
       if (!res) return
       api_data.value = res
-      //Object.assign( api_data.value, res)
     }
   }).catch(err=>{
     if (trans === tt_)  api_data.value.err = true

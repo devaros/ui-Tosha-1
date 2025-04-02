@@ -59,8 +59,8 @@ h5 {
   font-size: 1.7rem;
 }
 h1, h2, h3, h5, .text-h2, .text-h3{
-  margin-block-start: 0.6rem;
-  margin-block-end: 0.6rem;
+  margin-block-start: 0.3rem;
+  margin-block-end: 0.3rem;
   line-height: 1.1;
 }
 
@@ -151,6 +151,9 @@ button:focus-visible {
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
+}
+.pa-1{
+  padding: 4px;
 }
 .pa-2{
   padding: 8px;
@@ -294,6 +297,9 @@ __media (min-width: 1200.00px) {
     width: 100%;
     flex-wrap: wrap;
   }
+  .d-sm-none{
+    display: none !important;
+  }
 }
 
 .col-12{
@@ -324,6 +330,9 @@ __media (min-width: 1200.00px) {
 }
 .bg-warn{
   background-color: orange !important;
+}
+.bg-err{
+  background-color: red !important;
 }
 .bg-secondary{
   background-color: #ccc !important;

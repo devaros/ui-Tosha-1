@@ -4,7 +4,7 @@
 ```
 This code must be upload to ESP32 chip microPython based 
 ```
-Это мини-UI интерфейс предназначет для проекта [py-Tosha-1](https://github.com/devaros/py-Tosha-1)
+Это мини-UI интерфейс предназначен для проекта [py-Tosha-1](https://github.com/devaros/py-Tosha-1)
 
 ![image info](/doc/01-index.jpg)
 

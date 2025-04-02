@@ -34,7 +34,11 @@ const routes = [
         component: ()=>import('./pages/switches.vue') //switches
     },
     {
-        path: "/standard/:nm_module?", name:"standard", meta:{label:'standard'},
+        path: "/standard", name:"standard", meta:{label:'standard sections'},
+        component: ()=>import('./pages/standard.vue') //standard
+    },
+    {
+        path: "/standard/grp/:nm_group", name:"standard_grp", meta:{label:'tags & controls'},
         component: ()=>import('./pages/standard.vue') //standard
     },
 

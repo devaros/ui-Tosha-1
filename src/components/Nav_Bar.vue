@@ -21,7 +21,7 @@ const items = [
   {img:'/assets2/net_wifi.svg',to:'/network',label:'network'},
   {img:'/assets2/folder_files.svg',to:'/files',label:'files'},
   {img:'/assets2/info.svg',to:'/info',label:'info'},
-  {img:'/assets2/switches.svg',to:'/switches',label:'switch'},
+  {img:'/assets2/switches.svg',to:'/standard',label:'standard'},
   {img:'/assets2/schedule.svg',to:'/cron_scheduler',label:'scheduler'},
   {img:'',to:'',label:''},
   {img:'/assets2/settings.svg',to:'/settings',label:'settings'},

@@ -1,15 +1,19 @@
 <template>
   <div>
-    <standard_det v-if="$route.query?.nm_module" />
+    <standard_det v-if="$route.query?.nm_module || $route.params?.nm_group" />
 
-    <div v-if="!$route.query?.nm_module" >
+    <div v-if="!$route.query?.nm_module && !$route.params?.nm_group" >
       <h3> Standard modules </h3>
 
 
       <div class="row px-2" >
         <div class="col-6 col-md-12 px-2 _text-b align-ic justify-cc" v-for="(r) in modules">
           <z-button  @click="set_page(r)" ladge :label="r[1]" >
+            <template v-slot:prepend="" v-if="r[2]" >
+              <div v-if="r[2]" class="btn_group"  @click.prevent.stop="set_page_grp(r)" _ladge :label="r[2]" >{{r[2]}}</div>
+            </template >
           </z-button>
+              <z-button v-if="r[2] && 0" @click.prevent.stop="set_page_grp(r)" _ladge :label="r[2]" />
         </div>
       </div>
 
@@ -97,7 +101,12 @@ function set_api_state(r){
 }
 
 function set_page([nm_module, label]){
-  router.push({name:'standard',params:{nm_module},query:{nm_module, label}})
+  router.push({name:'standard',query:{nm_module, label}})
+}
+
+
+function set_page_grp([nm_module, label, nm_group]){
+  router.push({name:'standard_grp',params:{nm_group},query:{nm_module,label}})
 }
 
 
@@ -115,7 +124,7 @@ onDeactivated(()=>{
 
 </script>
 
-<style>
+<style scoped>
 .lamp{
   width:16px;
   height:16px;
@@ -135,4 +144,11 @@ onDeactivated(()=>{
     border-radius: 9px;
 }
 
+.btn_group{
+  padding: 6px 17px;
+  margin-right: 4px;
+  background: #aa00bb11;
+  box-shadow: 0.5px 0.5px 4px 0px #00000099  inset;
+  border-radius: 17px;
+}
 </style>
